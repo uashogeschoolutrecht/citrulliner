@@ -257,7 +257,7 @@ p_3 <- plot_grid(legend_b, figure_3, ncol = 1, rel_heights = c(0.05, 1))
 
 ## citrulliner::save_in_image_directory(filename = "test2.svg", height = 26, width = 7)
 
-svg(filename = "test3.svg", height = 26, width = 9)
+svg(filename = "test3.svg", height = 26, width = 11)
 p_3
 dev.off()
 
@@ -285,7 +285,7 @@ p_4 <- plot_grid(legend_b, figure_4, ncol = 1, rel_heights = c(0.05, 1))
 
 ## citrulliner::save_in_image_directory(filename = "test2.svg", height = 26, width = 7)
 
-svg(filename = "test4.svg", height = 13, width = 11)
+svg(filename = "test4.svg", height = 8, width = 9)
 p_4
 dev.off()
 
