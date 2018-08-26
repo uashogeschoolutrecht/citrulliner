@@ -1,0 +1,44 @@
+---
+title: '{citrulliner} package installation'
+author: "Marc A.T. Teunis"
+date: "8/26/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = FALSE)
+```
+
+## Introduction
+This package companions the paper "...[ref here]...". It contains all the R-code for recreating the graphical representations of the data presented in the paper.
+
+## Dependencies
+Tot install all dependencies manually
+```{r}
+install.packages(c(
+  "tidyverse",
+  "xlsx",
+  "readr",
+  "readxl",
+  "devtools",
+  "pastecs"))
+
+```
+
+## Installing the package from Github.com
+```{r}
+devtools::install_github("uashogeschoolutrecht/citrulliner")
+```
+
+## The data
+The data in this package is a selection of the full dataset which will be made public in the `{gramlyr}` package. If you are interested in the full dataset, please contact the package author.
+
+## Getting help
+The package contains several vignettes.
+```{r}
+browseVignettes(package = "citrulliner")
+```
+
+
+
