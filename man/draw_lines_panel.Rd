@@ -4,7 +4,8 @@
 \alias{draw_lines_panel}
 \title{Create a summary line graph from a single analyte; suitable for multipanelled plots}
 \usage{
-draw_lines_panel(DF, palette_graph)
+draw_lines_panel(DF, palette_graph, ymax = max(DF$mean_conc * 1.5),
+  ymin = min(DF$mean_conc * 1.5))
 }
 \arguments{
 \item{DF}{A data.frame containing data for a single analyte}

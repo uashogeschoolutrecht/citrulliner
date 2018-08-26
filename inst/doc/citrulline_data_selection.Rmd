@@ -1,0 +1,94 @@
+---
+title: "Get data for Paper Kartaram et al., `Citrulline`"
+author: "Marc A.T. Teunis"
+date: "January 31, 2018"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette-citrulliner_select_data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Aim
+Selecting only those features that were used for the paper Kartaram et al: "Plasma citrulline concentration, a marker for intestinal functionality, reflects exercise intensity in healthy young men"
+
+```{r, root, include=FALSE}
+if(!require("rprojroot")) install.packages("rprojroot", dependencies = TRUE)
+library(rprojroot)
+root <- rprojroot::find_root_file(criterion = is_rstudio_project)
+root
+```
+
+## Packages
+```{r, packages}
+library(tidyverse)
+library(readr)
+library(gramlyr)
+```
+
+## read data
+```{r, read_data}
+data_file_path <- file.path(root, "data", "diagrams_clean.rds")
+
+#diagrams <- gramlyr::diagrams_clean
+ diagrams <- read_rds(path = data_file_path)
+```
+
+## Inspect data
+```{r}
+head(diagrams, 3)
+# check factor levels
+levels(diagrams$subject)
+levels(diagrams$protocol)
+levels(diagrams$time)
+levels(diagrams$analyte %>% as.factor)
+```
+
+## Selecting analytes:
+The analytes mentioned in the paper:
+
+ - Glutamine (`gln`)
+ - Alanine (`ala`)
+ - Citrulline (`citrul`)
+ - Arginine (`arg`)
+ - Urea (`UREUM`)
+ - IFABP (`ifabp`)
+ - Cortisol (`CORT`)
+ - Creatine-phosphokinase (`CK`)
+ 
+The paper concerns only data from the 'GRINTA!' study 
+
+```{r}
+# create vector with analyte level-names
+analytes_filter <- c("gln", "ala", "citrul", "arg", "UREUM", "ifabp", "CORT", "CK")
+```
+ 
+## Filter data 
+The data is filtered for 'GRINTA!' and above mentioned analytes.
+
+```{r, filter}
+citrulline_data <- diagrams %>%
+  filter(analyte %in% analytes_filter) %>%
+  filter(study == "grinta") %>% droplevels(.)
+
+# check factor levels
+levels(citrulline_data$subject)
+levels(citrulline_data$protocol)
+levels(citrulline_data$time)
+levels(citrulline_data$analyte %>% as.factor)
+head(citrulline_data)
+```
+
+## Missing values
+```{r}
+sum(is.na(citrulline_data))
+```
+
+## Write data to disk
+Data is written to disk as an R data file (*.rds) file named "./data/citrulline_paper_kartaram_et_al_1_0.txt". This data is used for creating the figures of the paper.
+```{r}
+write_rds(citrulline_data, path = file.path(root, "data-raw", "citrulline_paper_kartaram_et_al_1_0.rds"))
+```
+
+ 
+ 

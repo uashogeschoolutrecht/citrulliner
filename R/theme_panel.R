@@ -83,7 +83,7 @@ theme_panel <- function (base_size = 30,
       #                                       unit = "pt"), hjust=0.5),
 
       #plot.title = element_text(vjust = 2),
-      plot.margin = unit(c(1,5,1,5), "cm"),
+      plot.margin = unit(c(1.5,1.5,1.5,1.5), "cm"),
       #plot.margin=unit(c(1.5,1.5,1.5,1.5),"cm"),
 
       # Facet labels

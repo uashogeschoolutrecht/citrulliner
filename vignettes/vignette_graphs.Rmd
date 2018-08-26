@@ -4,7 +4,7 @@ author: "Marc A.T. Teunis"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{vignette-citrulliner}
+  %\VignetteIndexEntry{vignette-citrulliner_graphs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -43,6 +43,7 @@ library(svglite)
 library(ggplot2)
 library(gridExtra)
 library(grid)
+library(citrulliner)
 ```
 
 # Data
@@ -83,17 +84,17 @@ The number of missing values is
 names(data)
 data_summary <- data %>%
 #  na.omit() %>%
-   filter(duplicated == "FALSE") %>%
-   group_by(protocol,
+   dplyr::filter(duplicated == "FALSE") %>%
+   dplyr::group_by(protocol,
            time,
            analyte) %>%
   
-  summarise(mean_conc = round(mean(concentration), digits = 4),
+  dplyr::summarise(mean_conc = round(mean(concentration), digits = 4),
             sd = round(sd(concentration), digits = 3),
             n_obs = n(),
             sem = round(sd/sqrt(n_obs), digits = 3)
             ) %>%
-  arrange(protocol, analyte)
+  dplyr::arrange(protocol, analyte)
   
 #names(diagrams_summary)[1] <- c("protocol")
 #names(diagrams_summary)[2] <- c("time")
@@ -153,7 +154,7 @@ dir.create(file.path(root, "inst",
 # argument for function test
 analyte = "ala"
 
-print_lines <- function(analyte){
+print_lines <- function(analyte, ...){
 
   #ymax_data <- max(data_split[[analyte]]$mean_conc)
 #  sem_max <- max(data_split[[analyte]]$sem)
@@ -166,11 +167,13 @@ data_plot <- data_split[[analyte]]
     
   
  plot <- citrulliner::draw_lines(DF = data_plot, 
-                                 palette_graph = palette, 
-                                 ymax = ymax,
-                                 ymin = ymin)
+                                 palette_graph = palette,
+                                # ymax = ymax,
+                                # ymin = ymin 
+                                f.width = 14, f.height = 10) 
+ 
+ 
 
-  
 
   return(plot)
 }
@@ -180,6 +183,9 @@ ala_lines
 plot_list <- lapply(levels(data_summary$analyte), print_lines)
 names(plot_list) <- levels(data_summary$analyte)
 names(plot_list)
+
+print_lines("ala", f.width = 18, f.height = 8)
+
 ```
 
 ## Panel plots for the paper
@@ -192,10 +198,10 @@ print_lines_panel <- function(analyte){
 
   ymax_data <- max(data_split[[analyte]]$mean_conc)
   sem_max <- max(data_split[[analyte]]$sem)
-  ymax <- 1.2*(ymax_data)
+  ymax <- 1.05*(ymax_data)
   
   ymin_data <- min(data_split[[analyte]]$mean_conc)
-  ymin <- ymin_data - (0.2*ymin_data)
+  ymin <- ymin_data - (0.05*ymin_data)
   
 data_plot <- data_split[[analyte]]
     
@@ -215,63 +221,83 @@ panel_plot_list <- lapply(levels(data_summary$analyte), print_lines_panel)
 names(panel_plot_list) <- levels(data_summary$analyte)
 names(panel_plot_list)
 
+panel_plot_list[[1]]
+```
+
+## Select figures for panels
+```{r}
 
 # figure 3; panel
-p1_a <- panel_plot_list[["gln"]]
-p1_b <- panel_plot_list[["ala"]]
-p1_c <- panel_plot_list[["citrul"]]
-p1_d <- panel_plot_list[["arg"]]
-p1_e <- panel_plot_list[["UREUM"]]
-
+p3_a <- panel_plot_list[["gln"]]
+p3_b <- panel_plot_list[["ala"]]
+p3_c <- panel_plot_list[["citrul"]]
+p3_d <- panel_plot_list[["arg"]]
+p3_e <- panel_plot_list[["UREUM"]]
+p3_f <- panel_plot_list[["CK"]]
 # figure 4; panel
-p2_a <- panel_plot_list[["ifabp"]]
-p2_b <- panel_plot_list[["CORT"]]
+p4_a <- panel_plot_list[["ifabp"]]
+p4_b <- panel_plot_list[["CORT"]]
 
-p1_a
 ```
 
 ## Panels
 
 ### Figure 3
-```{r}
+```{r, fig.width=16, fig.height=24}
 # https://cran.r-project.org/web/packages/cowplot/vignettes/shared_legends.html
 
-figure_3 <- plot_grid( p1_a + theme(legend.position="none"),
-           p1_b + theme(legend.position="none"),
-           p1_c + theme(legend.position="none"),
-           p1_d + theme(legend.position="none"),
-           p1_e + theme(legend.position="none"),
+figure_3 <- plot_grid( p3_a + theme(legend.position="none"),
+           p3_b + theme(legend.position="none"),
+           p3_c + theme(legend.position="none"),
+           p3_d + theme(legend.position="none"),
+           p3_e + theme(legend.position="none"),
+           p3_f + theme(legend.position="none"),
            align = 'vh',
-           labels = c("A", "B", "C", "D", "E"),
-           hjust = -1,
-           ncol = 1,
+           labels = c("A", "B", "C", "D", "E", "F"),
+           hjust = -8,
+           ncol = 2,
+           nrow = 3,
            label_size = 18
            )
 
 figure_3
+```
 
+```{r}
 
-legend_b <- get_legend(p1_a + theme(legend.position="bottom"))
+legend_b <- get_legend(p3_a + theme(legend.position="bottom"))
 
 p_3 <- plot_grid(legend_b, figure_3, ncol = 1, rel_heights = c(0.05, 1))
 
 ## citrulliner::save_in_image_directory(filename = "test2.svg", height = 26, width = 7)
 
-svg(filename = "test3.svg", height = 26, width = 11)
+```
+
+## Saving to disk
+```{r, eval=FALSE}
+
+svg(filename = "./inst/images/panel_fig_3.svg", height = 20, width = 20)
+p_3
+dev.off()
+
+pdf(file = "./inst/images/panel_fig_3.pdf", height = 20, width = 20)
 p_3
 dev.off()
 
 
 
+p_3
+
+
 ```
 
 ### Figure 4
-```{r}
-figure_4 <- plot_grid( p2_a + theme(legend.position="none"),
-           p2_b + theme(legend.position="none"),
+```{r, fig.width=16, fig.height=20}
+figure_4 <- plot_grid( p4_a + theme(legend.position="none"),
+           p4_b + theme(legend.position="none"),
            align = 'vh',
            labels = c("A", "B"),
-           hjust = -1,
+           hjust = -6,
            ncol = 1,
            label_size = 18
            )
@@ -279,18 +305,27 @@ figure_4 <- plot_grid( p2_a + theme(legend.position="none"),
 figure_4
 
 
-legend_b <- get_legend(p2_a + theme(legend.position="bottom"))
+legend_b <- get_legend(p4_a + theme(legend.position="bottom"))
 
 p_4 <- plot_grid(legend_b, figure_4, ncol = 1, rel_heights = c(0.05, 1))
 
 ## citrulliner::save_in_image_directory(filename = "test2.svg", height = 26, width = 7)
+```
 
-svg(filename = "test4.svg", height = 8, width = 9)
+## Saving to disk
+```{r, eval = FALSE}
+
+
+svg(filename = "./inst/images/panel_fig_4.svg", height = 14, width = 9)
 p_4
 dev.off()
 
+
+pdf(file = "./inst/images/panel_fig_4.pdf", height = 14, width = 9)
+p_4
+dev.off()
+
+
+
+p_4
 ```
-
-
-
-

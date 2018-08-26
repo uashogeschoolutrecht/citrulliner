@@ -4,7 +4,7 @@
 \alias{save_in_image_directory}
 \title{Function to save a ggplot2 graph to disk}
 \usage{
-save_in_image_directory(filename)
+save_in_image_directory(filename, height = 7, width = 12)
 }
 \arguments{
 \item{filename}{A filename as a full path character string, including extensions}

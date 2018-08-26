@@ -6,7 +6,7 @@
 
 ## save a file in specified folder with ggsave
 
-save_in_image_directory<-function(filename, height = 7, width = 12){
+save_in_image_directory<-function(filename, f.height = 9, f.width = 14, ...){
   imageFile <- file.path(image_directory, filename)
-  cowplot::ggsave(imageFile, dpi = 900, width = width, height = height)
+  cowplot::ggsave(imageFile, dpi = 900, width = f.width, height = f.height)
 }

@@ -3,7 +3,6 @@
 %   R/grid_arrange_shared_legend.R
 \name{grid_arrange_shared_legend}
 \alias{grid_arrange_shared_legend}
-\alias{grid_arrange_shared_legend}
 \title{Function to combine multiple ggplot graphs in a panel,}
 \usage{
 grid_arrange_shared_legend(..., ncol = length(list(...)), nrow = 1,
