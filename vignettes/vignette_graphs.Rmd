@@ -190,6 +190,14 @@ print_lines("ala", f.width = 18, f.height = 8)
 
 ## Panel plots for the paper
 ```{r}
+
+
+
+library(profvis)
+
+## get profile; for speed optimization, omitting saving as png can improve speed in this case 
+# profvis::profvis({
+
 library(citrulliner)
 library(gtable)
 library(cowplot)
@@ -222,6 +230,10 @@ names(panel_plot_list) <- levels(data_summary$analyte)
 names(panel_plot_list)
 
 panel_plot_list[[1]]
+
+
+#})
+
 ```
 
 ## Select figures for panels

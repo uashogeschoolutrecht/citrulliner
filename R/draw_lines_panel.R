@@ -16,8 +16,7 @@
 draw_lines_panel <- function(DF,
                              palette_graph,
                              ymax = max(DF$mean_conc * 1.5),
-                             ymin = min(DF$mean_conc * 1.5),
-                             ...) {
+                             ymin = min(DF$mean_conc * 1.5)) {
   ##############################
   # load library & functions
   ##############################
@@ -84,8 +83,8 @@ draw_lines_panel <- function(DF,
     
     ggplot2::geom_line(
       aes(group = protocol),
-      size = 1.2,
-      alpha = 8 / 9,
+      size = 2,
+      alpha = 0.8,
       position = position_dodge(width = 0.2)
     ) +
     
@@ -110,12 +109,12 @@ draw_lines_panel <- function(DF,
     
     
     ggplot2::geom_vline(xintercept = 1,
-                        colour = "red",
+                        colour = "gray",
                         linetype = "dashed", size = 1) +
     
     
     ggplot2::geom_vline(xintercept = 3,
-                        colour = "red",
+                        colour = "gray",
                         linetype = "dashed", size = 1) +
     
     
