@@ -54,6 +54,7 @@ draw_lines <- function(DF,
   }
   
   plot_title <- firstup(long_name)
+ 
   #############################
   # axis limits
   #############################
@@ -61,44 +62,39 @@ draw_lines <- function(DF,
   plot <- ggplot2::ggplot(data = DF, aes(x = time,
                                          y = mean_conc,
                                          colour = protocol)) +
-    
-    
-    ggplot2::geom_point(
+      ggplot2::geom_point(
       aes(shape = protocol),
       size = 3,
       position = position_dodge(width = 0.2),
       show.legend = FALSE
     ) +
-    
     ggplot2::geom_line(aes(group = protocol),
                        size = 1.6,
                        position = position_dodge(width = 0.2)) +
-    
-    ggplot2::scale_colour_manual(labels = c("Rest",
-                                            "70%",
-                                            "70% DH",
-                                            "50%",
-                                            "55%/85%"),
-                                 values = palette_graph)   +
-    
-    
+    ggplot2::scale_colour_manual(labels = c(" Rest ",
+                                            " 70% ",
+                                            " 70%-DH ",
+                                            " 50% ",
+                                            " 55%/85% "),
+                                  values = palette_graph)   +
     ggplot2::scale_shape_manual(values = c(5, 6, 15:17)) +
-    citrulliner::theme_individual() +
-    
     ggplot2::xlab("Time (hours)") +
-    
     ggplot2::ylab(paste("Concentration", paste0("(",
                                                 y_axis_label,
                                                 ")"))) +
-    
-    
-    
     ggplot2::ggtitle(plot_title) +
-    
     ggplot2::geom_vline(xintercept = 1, linetype = "dashed") +
-    
-    ggplot2::geom_vline(xintercept = 3, linetype = "dashed")
+    ggplot2::geom_vline(xintercept = 3, linetype = "dashed") +
   
+    geom_label(aes(x = 1, y = 0, 
+                   label = "T0"), colour = "black") +
+    
+    geom_label(aes(x = 3, y = 0, 
+                   label = "T1"), colour = "black") +
+  
+  citrulliner::theme_individual() 
+    
+  plot
   ##assigning a name to the file
   png <- paste(nameFile, "line.png", sep = "")
   #  eps <- paste(nameFile,"line.eps", sep = "")

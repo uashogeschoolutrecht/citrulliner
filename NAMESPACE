@@ -2,7 +2,11 @@
 
 export(draw_lines)
 export(draw_lines_panel)
+export(draw_lines_panel_2)
+export(draw_lines_panel_6)
 export(grid_arrange_shared_legend)
 export(save_in_image_directory)
 export(theme_individual)
 export(theme_panel)
+export(theme_panel_2)
+export(theme_panel_6)

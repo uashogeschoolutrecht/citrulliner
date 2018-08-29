@@ -190,9 +190,6 @@ print_lines("ala", f.width = 18, f.height = 8)
 
 ## Panel plots for the paper
 ```{r}
-
-
-
 library(profvis)
 
 ## get profile; for speed optimization, omitting saving as png can improve speed in this case 
@@ -249,6 +246,9 @@ p3_f <- panel_plot_list[["CK"]]
 # figure 4; panel
 p4_a <- panel_plot_list[["ifabp"]]
 p4_b <- panel_plot_list[["CORT"]]
+# figure rubuttal
+rebuttal_a <- panel_plot_list[["citrul"]]
+rebuttal_b <- panel_plot_list[["CK"]]
 
 ```
 
@@ -285,59 +285,77 @@ p_3 <- plot_grid(legend_b, figure_3, ncol = 1, rel_heights = c(0.05, 1))
 
 ```
 
-## Saving to disk
-```{r, eval=FALSE}
-
-svg(filename = "./inst/images/panel_fig_3.svg", height = 20, width = 20)
-p_3
-dev.off()
-
-pdf(file = "./inst/images/panel_fig_3.pdf", height = 20, width = 20)
-p_3
-dev.off()
-
-
-
-p_3
-
-
-```
-
-### Figure 4
+### Figure "Rubuttal - Citrulline vs. Creatine phosphokinase
 ```{r, fig.width=16, fig.height=20}
-figure_4 <- plot_grid( p4_a + theme(legend.position="none"),
-           p4_b + theme(legend.position="none"),
+rebuttal <- plot_grid(rebuttal_a + theme(legend.position = "none"),
+           rebuttal_b + theme(legend.position = "none"),
            align = 'vh',
            labels = c("A", "B"),
            hjust = -6,
            ncol = 1,
+           nrow = 2,
            label_size = 18
            )
 
-figure_4
 
 
-legend_b <- get_legend(p4_a + theme(legend.position="bottom"))
+legend_b <- get_legend(rebuttal_a + theme(legend.position = "bottom"))
 
-p_4 <- plot_grid(legend_b, figure_4, ncol = 1, rel_heights = c(0.05, 1))
+rebuttal <- plot_grid(legend_b, rebuttal, ncol = 1, rel_heights = c(0.1, 1))
 
 ## citrulliner::save_in_image_directory(filename = "test2.svg", height = 26, width = 7)
 ```
 
-## Saving to disk
-```{r, eval = FALSE}
+## Fig 3 - Saving to disk
+```{r}
 
+svg(filename = "./inst/images/panel_fig_3.svg", 
+    height = 20, width = 20)
+p_3
+dev.off()
 
-svg(filename = "./inst/images/panel_fig_4.svg", height = 14, width = 9)
-p_4
+pdf(file = "./inst/images/panel_fig_3.pdf", height = 20, 
+    width = 20)
+p_3
 dev.off()
 
 
-pdf(file = "./inst/images/panel_fig_4.pdf", height = 14, width = 9)
+
+p_3
+
+
+```
+
+## Fig 4 - Saving to disk
+```{r}
+svg(filename = "./inst/images/panel_fig_4.svg", height = 14, width = 10)
 p_4
 dev.off()
 
-
+pdf(file = "./inst/images/panel_fig_4.pdf", height = 14, width = 10)
+p_4
+dev.off()
 
 p_4
 ```
+
+## Fig rubuttal - Saving to disk
+```{r}
+svg(filename = "./inst/images/fig_rebuttal.svg", height = 14, width = 10)
+rebuttal
+dev.off()
+
+pdf(file = "./inst/images/fig_rebuttal.pdf", height = 14, width = 10)
+rebuttal 
+dev.off()
+
+png(file = "./inst/images/fig_rebuttal.png", height = 40, width = 25, units = "cm", res = 300)
+rebuttal 
+dev.off()
+
+
+
+
+```
+
+

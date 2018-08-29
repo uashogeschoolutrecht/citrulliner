@@ -13,7 +13,7 @@
 #' @export
 
 
-draw_lines_panel <- function(DF,
+draw_lines_panel_2 <- function(DF,
                              palette_graph,
                              ymax = max(DF$mean_conc * 1.5),
                              ymin = min(DF$mean_conc * 1.5)) {
@@ -118,7 +118,7 @@ draw_lines_panel <- function(DF,
     
     ggplot2::ggtitle(plot_title) +
     
-    citrulliner::theme_panel()
+    citrulliner::theme_panel_2()
 
   ##assigning a name to the file
   png <- paste(nameFile, "panel_line.png", sep = "")

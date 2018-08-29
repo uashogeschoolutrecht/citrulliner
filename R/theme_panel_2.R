@@ -14,7 +14,7 @@
 
 
 # generating a theme for publication quality graph
-theme_panel <- function (base_size = 30,
+theme_panel_2 <- function (base_size = 30,
                          base_family = "") {
   theme_grey(base_size = base_size,
              base_family = base_family) %+replace%

@@ -14,7 +14,7 @@
 
 
 # generating a theme for publication quality graph
-theme_panel <- function (base_size = 30,
+theme_panel_6 <- function (base_size = 30,
                          base_family = "") {
   theme_grey(base_size = base_size,
              base_family = base_family) %+replace%
@@ -54,10 +54,10 @@ theme_panel <- function (base_size = 30,
       
       #  legend.title = element_text(size = 20, margin = margin(0,10,10,0, unit = "pt"),
       #                                                           colour = "black"),
-      legend.text = element_text(size = 18),
+      legend.text = element_text(size = 25),
       
       legend.position = "right",
-      legend.key = element_rect(size = 20, colour = "white"),
+      legend.key = element_rect(size = 30, colour = "white"),
       legend.key.size = unit(1.5, 'lines'),
       legend.key.width = unit(1.5, 'lines'),
       
