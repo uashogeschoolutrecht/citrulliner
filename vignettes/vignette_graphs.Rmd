@@ -233,7 +233,7 @@ panel_plot_list[[1]]
 
 ```
 
-## Select figures for panels
+## Select figures for panels 
 ```{r}
 
 # figure 3; panel
@@ -358,4 +358,5 @@ dev.off()
 
 ```
 
+# Kinetics paper
 

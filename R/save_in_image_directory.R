@@ -8,5 +8,5 @@
 
 save_in_image_directory<-function(filename, f.height = 9, f.width = 14, ...){
   imageFile <- file.path(image_directory, filename)
-  cowplot::ggsave(imageFile, dpi = 900, width = f.width, height = f.height)
+  ggplot2::ggsave(imageFile, dpi = 900, width = f.width, height = f.height)
 }
