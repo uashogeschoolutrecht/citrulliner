@@ -1,10 +1,6 @@
 Package: citrulliner
 Title: This package holds the data, the figures and R code for the 'Citrulline' paper 
 Version: 1.1.2
-Package: citrulliner
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 1.1.0
 Authors@R: person("Marc", "Teunis", email = "marc.teunis@hu.nl", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.3)
