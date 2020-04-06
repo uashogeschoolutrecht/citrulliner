@@ -2,7 +2,7 @@
 
 Install the {remotes} package if you not already did so
 ```
-install.packages("devtools")
+install.packages("remotes")
 ```
 
 Install {citrulliner} by running the following code in R
