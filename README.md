@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/701986681.svg)](https://zenodo.org/badge/latestdoi/701986681)
+
 # `{citrulliner}`; An R package with analysis, vizualization code and datasets
 
 ## Scientific work referencing this package
