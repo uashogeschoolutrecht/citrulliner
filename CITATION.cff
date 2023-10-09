@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software and data, please cite it as below."
+authors:
+- family-names: "Teunis"
+  given-names: "Marc"
+  orcid: "https://orcid.org/0000-0002-3496-6669"
+title: "citrulliner; An R package with analysis and visualization code and datasets"
+version: 2.0.4
+doi: 
+date-released: 2017-12-18
+url: "https://github.com/uashogeschoolutrecht/citrulliner"
